@@ -242,11 +242,11 @@ class Install
   cleanupZip: (options) ->
     fs.removeAsync(options.zipDestination)
 
-  finishedInstalling: (version) ->
+  finishedInstalling: (version, destination) ->
     ascii = [
       chalk.white("  -")
       chalk.blue("Finished Installing")
-      chalk.green(utils.getPathToUserExecutable())
+      chalk.green(path.join(destination, utils.getPlatformExecutable()))
       chalk.gray("(version: #{version})")
     ]
 
@@ -267,7 +267,7 @@ class Install
   finish: (options) ->
     @cleanupZip(options).then =>
 
-      @finishedInstalling(options.version)
+      @finishedInstalling(options.version, options.destination)
 
       @displayOpeningApp() if options.displayOpen
 
