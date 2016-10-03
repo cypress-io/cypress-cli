@@ -140,6 +140,7 @@ describe "Install", ->
   context "#finish", ->
     beforeEach ->
       @options = {initialize: false, version: "0.11.2"}
+      @sandbox.stub(utils, "getDefaultAppFolder").returns("/foo/bar")
       @install = new Install(@options)
       @console = @sandbox.spy(console, "log")
       @cleanupZip = @sandbox.spy(@install, "cleanupZip")
@@ -151,12 +152,19 @@ describe "Install", ->
         expect(@cleanupZip).to.be.calledWith(@options)
 
     it "logs out Finished Installing", ->
-      @sandbox.stub(utils, "getPathToUserExecutable").returns("/foo/bar")
+      @sandbox.stub(utils, "getPlatformExecutable").returns("baz")
 
       @install.initialize(@options).then =>
         expect(@console).to.be.calledWithMatch("Finished Installing")
-        expect(@console).to.be.calledWithMatch("/foo/bar")
+        expect(@console).to.be.calledWithMatch("/foo/bar/baz")
         expect(@console).to.be.calledWithMatch("(version: 0.11.2)")
+
+    it "logs out Finished Installing with destination", ->
+      @sandbox.stub(utils, "getPlatformExecutable").returns("baz")
+
+      @options.destination = "/foobar/"
+      @install.initialize(@options).then =>
+        expect(@console).to.be.calledWithMatch("/foobar/baz")
 
     it "displays opening app message", ->
       @install.initialize(@options).then =>
