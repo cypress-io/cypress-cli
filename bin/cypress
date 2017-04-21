@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-require("coffee-script/register")
+require("@cypress/coffee-script")
 
 require("../lib/cli.coffee")()
