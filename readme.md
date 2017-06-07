@@ -9,7 +9,7 @@ This is the `Cypress CLI` tool used for the Desktop Application.
 You run tasks such as:
 
 - Installing Cypress
-- Running Cypress Headlessly
+- Running Cypress Headlessly (Electron is used as headless browser)
 - Checking the current version
 
 ## Documentation
