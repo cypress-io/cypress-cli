@@ -2,6 +2,13 @@
 
 This is the CLI for: [https://github.com/cypress-io/cypress](https://github.com/cypress-io/cypress).
 
+## Deprecated
+
+⚠️ This module is deprecated in favor of an "all-in-one" Cypress NPM package
+`cypress` that can be installed as a regular dev dependency.
+
+See [https://on.cypress.io/installing-via-npm](https://on.cypress.io/installing-via-npm)
+
 ## What this does
 
 This is the `Cypress CLI` tool used for the Desktop Application.
