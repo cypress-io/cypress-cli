@@ -30,10 +30,12 @@ doNotInstallNewCypress = (version) ->
     versionText = if version then "version #{chalk.green(version)}" else "the latest version"
     msg = """
     You are trying to install #{versionText} of Cypress.
-    This version can be installed as a regular devDependency without
-    using cypress-cli helper.
 
-      See #{chalk.blue(helpUrl)} for details
+    This CLI tool is deprecated and can no longer install versions of Cypress above chalk.yellow("0.19.4"). 
+
+    For newer versions, please use the new chalk.cyan("cypress") npm module.
+
+    See #{chalk.blue(helpUrl)} for details
     """
     console.log(msg)
     process.exit(1)
