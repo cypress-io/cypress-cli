@@ -107,7 +107,9 @@ describe "Install", ->
 
   context "#unzip", ->
     beforeEach ->
-      @options = {}
+      @options = {
+        version: "0.19.4"
+      }
       @console = @sandbox.spy(console, "log")
       @exit    = @sandbox.stub(process, "exit")
 
@@ -152,7 +154,11 @@ describe "Install", ->
 
   context "#finish", ->
     beforeEach ->
-      @options = {initialize: false, version: "0.11.2"}
+      @options = {
+        initialize: false,
+        cypressVersion: "0.11.2",
+        version: "0.11.2"
+      }
       @console = @sandbox.spy(console, "log")
       @cleanupZip = @sandbox.spy(install, "cleanupZip")
 
