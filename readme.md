@@ -9,6 +9,33 @@ This is the CLI for: [https://github.com/cypress-io/cypress](https://github.com/
 
 See [https://on.cypress.io/installing-via-npm](https://on.cypress.io/installing-via-npm)
 
+## Installing new versions
+
+This module is now limited to installing older versions of Cypress.
+When trying to install a "new" version of Cypress module (>= 0.20.0) CLI will exit with an
+error.
+
+```text
+$ cypress-cli install --cypress-version 0.20.1
+You are trying to install version 0.20.1 of Cypress.
+This version can be installed as a regular devDependency without
+using cypress-cli helper.
+
+  See https://on.cypress.io/installing-cypress for details
+```
+
+Similarly, if you do not specify the explicit old version, it will not allow installing the latest
+Cypress version
+
+```text
+$ cypress-cli install
+You are trying to install the latest version of Cypress.
+This version can be installed as a regular devDependency without
+using cypress-cli helper.
+
+  See https://on.cypress.io/installing-cypress for details
+```
+
 ## What this does
 
 This is the `Cypress CLI` tool used for the Desktop Application.
