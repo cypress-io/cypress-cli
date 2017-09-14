@@ -31,9 +31,9 @@ doNotInstallNewCypress = (version) ->
     msg = """
     You are trying to install #{versionText} of Cypress.
 
-    This CLI tool is deprecated and can no longer install versions of Cypress above chalk.yellow("0.19.4"). 
+    This CLI tool is deprecated and can no longer install versions of Cypress above #{chalk.yellow("0.19.4")}.
 
-    For newer versions, please use the new chalk.cyan("cypress") npm module.
+    For newer versions, please use the new #{chalk.cyan("cypress")} npm module.
 
     See #{chalk.blue(helpUrl)} for details
     """
