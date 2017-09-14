@@ -94,14 +94,14 @@ describe "run", ->
         run.start(null, options)
 
     it "verifies cypress first", ->
-      @setup()
+      @setup({cypressVersion: "0.19.4"})
       .then =>
         expect(@verify).to.be.calledOnce
 
     it "installs cypress if verification failed", ->
       @verify.rejects()
 
-      @setup()
+      @setup({cypressVersion: "0.19.4"})
       .then =>
         expect(install.start).to.be.calledWithMatch({displayOpen: false})
         expect(install.start.getCall(0).args[0].after).to.be.a("function")
@@ -109,6 +109,6 @@ describe "run", ->
     it "logs out install message", ->
       @verify.rejects()
 
-      @setup()
+      @setup({cypressVersion: "0.19.4"})
       .then =>
         expect(console.log).to.be.calledWithMatch("Cypress was not found:", "Installing a fresh copy.")

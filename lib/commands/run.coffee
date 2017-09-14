@@ -65,7 +65,7 @@ module.exports = {
 
     @run(options)
 
-  run: (options) ->
+  run: (options = {}) ->
     after = ->
       run(options)
 
@@ -78,7 +78,11 @@ module.exports = {
 
       ## TODO: no reason after should be a callback function here
       ## just use a promise
-      install.start({after: after, displayOpen: false})
+      install.start({
+        after: after,
+        displayOpen: false,
+        cypressVersion: options.cypressVersion
+      })
 
 
 }

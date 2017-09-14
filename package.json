@@ -32,6 +32,7 @@
     "progress": "^1.1.8",
     "request": "^2.60.0",
     "request-progress": "^0.3.1",
+    "semver": "^5.4.1",
     "through2": "^2.0.0",
     "update-notifier": "^1.0.3",
     "xvfb": "cypress-io/node-xvfb",

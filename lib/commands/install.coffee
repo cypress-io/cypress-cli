@@ -13,11 +13,32 @@ yauzl         = require("yauzl")
 extract       = require("extract-zip")
 Promise       = require("bluebird")
 url           = require("url")
+semver        = require("semver")
 utils         = require("../utils")
 
 fs = Promise.promisifyAll(fs)
 
 baseUrl = "https://download.cypress.io/"
+
+# stop the program if given version of Cypress should not be
+# installed via cypress-cli
+doNotInstallNewCypress = (version) ->
+  # anything starting with this version should not use CLI
+  NEW_VERSION = "0.20.0"
+  if not version or semver.gte(version, NEW_VERSION)
+    helpUrl = "https://on.cypress.io/installing-cypress"
+    versionText = if version then "version #{chalk.green(version)}" else "the latest version"
+    msg = """
+    You are trying to install #{versionText} of Cypress.
+
+    This CLI tool is deprecated and can no longer install versions of Cypress above #{chalk.yellow("0.19.4")}.
+
+    For newer versions, please use the new #{chalk.cyan("cypress")} npm module.
+
+    See #{chalk.blue(helpUrl)} for details
+    """
+    console.log(msg)
+    process.exit(1)
 
 module.exports = {
   start: (options = {}) ->
@@ -34,6 +55,12 @@ module.exports = {
       destination:    utils.getDefaultAppFolder()
       executable:     utils.getPathToUserExecutable()
       after:          ->
+
+    # grab the version from options or environment early
+    if process.env.CYPRESS_VERSION
+      options.cypressVersion = process.env.CYPRESS_VERSION
+
+    doNotInstallNewCypress(options.cypressVersion)
 
     @initialize(options)
 
@@ -79,8 +106,8 @@ module.exports = {
       else
         u
 
-    if v = (version or process.env.CYPRESS_VERSION)
-      prepend("desktop/#{v}")
+    if version
+      prepend("desktop/#{version}")
     else
       prepend("desktop")
 

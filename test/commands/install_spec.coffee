@@ -26,6 +26,58 @@ describe "Install", ->
       @parse("install --cypress-version 0.13.0")
       expect(install.start).to.be.calledWith({cypressVersion: "0.13.0"})
 
+  context "old vs new version", ->
+    beforeEach ->
+      delete process.env.CYPRESS_VERSION
+      @sandbox.stub(process, "exit")
+      @sandbox.stub(install, "initialize").resolves()
+
+    afterEach ->
+      delete process.env.CYPRESS_VERSION
+
+    it "exits if version to install is undefined", ->
+      install.start({})
+      .then =>
+        expect(process.exit).to.be.calledWith(1)
+
+    it "exits if version to install is very new", ->
+      install.start({ cypressVersion: "0.30.0" })
+      .then =>
+        expect(process.exit).to.be.calledWith(1)
+
+    it "exits if version to install is 0.20.0", ->
+      install.start({ cypressVersion: "0.20.0" })
+      .then =>
+        expect(process.exit).to.be.calledWith(1)
+
+    it "allows old version installation", ->
+      install.start({ cypressVersion: "0.10.0" })
+      .then =>
+        expect(process.exit).to.not.be.called
+
+    it "allows version 0.19.4 installation", ->
+      install.start({ cypressVersion: "0.19.4" })
+      .then =>
+        expect(process.exit).to.not.be.called
+
+    it "allows version 0.19.9 installation", ->
+      install.start({ cypressVersion: "0.19.9" })
+      .then =>
+        expect(process.exit).to.not.be.called
+
+    describe "CYPRESS_VERSION", ->
+      it "exits if version to install is 0.20.1", ->
+        process.env.CYPRESS_VERSION = "0.20.1"
+        install.start()
+        .then =>
+          expect(process.exit).to.be.calledWith(1)
+
+      it "allows CYPRESS_VERSION=0.19.9 installation", ->
+        process.env.CYPRESS_VERSION = "0.19.9"
+        install.start()
+        .then =>
+          expect(process.exit).to.not.be.called
+
   context "#download", ->
     beforeEach ->
       @options = {}
@@ -107,7 +159,9 @@ describe "Install", ->
 
   context "#unzip", ->
     beforeEach ->
-      @options = {}
+      @options = {
+        version: "0.19.4"
+      }
       @console = @sandbox.spy(console, "log")
       @exit    = @sandbox.stub(process, "exit")
 
@@ -152,7 +206,11 @@ describe "Install", ->
 
   context "#finish", ->
     beforeEach ->
-      @options = {initialize: false, version: "0.11.2"}
+      @options = {
+        initialize: false,
+        cypressVersion: "0.11.2",
+        version: "0.11.2"
+      }
       @console = @sandbox.spy(console, "log")
       @cleanupZip = @sandbox.spy(install, "cleanupZip")
 
