@@ -32,6 +32,10 @@ See https://on.cypress.io/installing-cypress for details
 
 ## Changelog
 
+#### 0.14.0 - *(09/14/17)*
+- deprecate this module
+- throw error trying to install newer versions of cypress
+
 #### 0.13.1 - *(02/11/17)*
 - add --record option, pass --cli-version to cypress
 
