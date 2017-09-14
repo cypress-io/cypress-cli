@@ -26,28 +26,9 @@ For newer versions, please use the new cypress npm module.
 See https://on.cypress.io/installing-cypress for details
 ```
 
-## What this does
-
-This is the `Cypress CLI` tool used for the Desktop Application.
-
-You run tasks such as:
-
-- Installing Cypress
-- Running Cypress Headlessly
-- Checking the current version
-
 ## Documentation
 
 [The documentation has moved into our official docs here.](https://on.cypress.io/cli)
-
-## Contributing
-
-```bash
- npm test                                             ## run tests
- npm run test-debug                                   ## run tests w/node inspector
- npm version [major | minor | patch] -m "release %s"  ## update version
- npm publish                                          ## publish to npm
-```
 
 ## Changelog
 
